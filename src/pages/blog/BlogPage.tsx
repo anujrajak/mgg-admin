@@ -1,6 +1,6 @@
 import {
   Avatar,
-  Badge,
+  Tag,
   Box,
   Button,
   Card,
@@ -283,11 +283,11 @@ export default function BlogPage() {
                     <Td>{i + 1}</Td>
                     <Td>{r.title}</Td>
                     <Td>{r.createdAt}</Td>
-                    <Td>{r.likes}</Td>
                     <Td>
-                      <Badge variant="outline" colorScheme="yellow">
-                        {r.status}
-                      </Badge>
+                      <Tag colorScheme="red">{r.likes}</Tag>
+                    </Td>
+                    <Td>
+                      <Tag colorScheme="blue">{r.status?.toUpperCase()}</Tag>
                     </Td>
                   </Tr>
                 ))
