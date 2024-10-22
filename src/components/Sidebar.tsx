@@ -100,9 +100,10 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
+        {/* <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
           MGG: Admin
-        </Text>
+        </Text> */}
+        <img src="/logo.png" />
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
@@ -203,9 +204,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               bg={useColorModeValue("white", "gray.900")}
               borderColor={useColorModeValue("gray.200", "gray.700")}
             >
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
-              <MenuItem>Billing</MenuItem>
+              <Link to="profile">
+                <MenuItem>Profile</MenuItem>
+              </Link>
               <MenuDivider />
               <MenuItem onClick={logout}>Sign out</MenuItem>
             </MenuList>

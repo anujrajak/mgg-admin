@@ -28,6 +28,8 @@ import { updateCategories } from "../../redux/slice/categorySlice";
 
 function CategoryPage() {
   const dispatch = useDispatch();
+
+  // Ref: in order to get all categories data
   const { data, isLoading } = useFetchCategories();
 
   useEffect(() => {
@@ -84,9 +86,9 @@ function CategoryPage() {
                     <Tr key={`${r.name}-${i}`}>
                       <Td>{r.sequence}</Td>
                       <Td>{r.name}</Td>
-                      <Td>{r.d}</Td>
-                      <Td>{r.parent}</Td>
-                      <Td>{r.type}</Td>
+                      <Td>{r.description}</Td>
+                      <Td>{r?.parentCategory?.name || ""}</Td>
+                      <Td>{r.categoryType}</Td>
                     </Tr>
                   );
                 })

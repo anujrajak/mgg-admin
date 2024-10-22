@@ -21,9 +21,15 @@ import {
 import { useRef, useState } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useCreateCategory } from "../../utils/apiUtils";
+import { useSelector } from "react-redux";
+import { filter, isEmpty, map } from "lodash";
 
 export function CreateCategory() {
   const toast = useToast();
+  const categoryData = useSelector((state) => state.categoryInformation.data);
+
+  const [options, setOptions] = useState(categoryData);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
 
@@ -34,6 +40,15 @@ export function CreateCategory() {
   const [description, setDescription] = useState("");
 
   const { mutateAsync, isLoading: saveInProgress } = useCreateCategory();
+
+  const onCategoryTypeChange = (e) => {
+    setCType(e.target.value);
+    const fd = filter(
+      categoryData,
+      (item) => item.categoryType === e.target.value
+    );
+    setOptions(fd);
+  };
 
   const saveCategory = async () => {
     try {
@@ -114,7 +129,7 @@ export function CreateCategory() {
               <Select
                 placeholder="Select category type"
                 value={cType}
-                onChange={(e) => setCType(e.target.value)}
+                onChange={onCategoryTypeChange}
               >
                 <option>blog</option>
                 <option>deal</option>
@@ -128,9 +143,12 @@ export function CreateCategory() {
               <Select
                 placeholder="Select parent name"
                 value={parent}
+                disabled={isEmpty(cType)}
                 onChange={(e) => setParent(e.target.value)}
               >
-                <option>Electronic</option>
+                {map(options, (cat) => (
+                  <option value={cat?._id}>{cat?.name}</option>
+                ))}
               </Select>
               <FormHelperText></FormHelperText>
             </FormControl>

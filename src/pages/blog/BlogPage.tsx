@@ -39,13 +39,17 @@ import { useRef, useState } from "react";
 import { useFetchBlogs, useFetchCategories } from "../../utils/apiUtils";
 import { apiConstant, postType } from "../../enum/apiConstant";
 import axios from "axios";
-import { map } from "lodash";
+import { filter, map } from "lodash";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 export default function BlogPage() {
   const toast = useToast();
   const { data: categoryData, isLoading: isCategoryLoading } =
     useFetchCategories();
+
+  const [options, setOptions] = useState(
+    filter(categoryData || [], (cat) => cat.categoryType === "blog")
+  );
 
   const { data, isLoading } = useFetchBlogs();
 
@@ -58,6 +62,7 @@ export default function BlogPage() {
   const [body, setBody] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
   const [featuredImage, setFeaturedImage] = useState("");
+  const [status, setStatus] = useState("");
   const inputRef = useRef(null);
   const inputImgRef = useRef(null);
 
@@ -105,6 +110,7 @@ export default function BlogPage() {
       formData.append("body", body);
       formData.append("thumbnail", selectedFile);
       formData.append("featuredImage", featuredImage);
+      formData.append("status", status);
 
       const res = await axios.post(
         import.meta.env.VITE_API_BASE_URL +
@@ -211,8 +217,7 @@ export default function BlogPage() {
                           value={category}
                           onChange={(e) => setCategory(e.target.value)}
                         >
-                          <option>Select</option>
-                          {map(categoryData, (item) => (
+                          {map(options, (item) => (
                             <option key={item._id} value={item._id}>
                               {item.name}
                             </option>
@@ -228,6 +233,18 @@ export default function BlogPage() {
                         placeholder="tags"
                         onChange={(e) => setTags(e.target.value)}
                       />
+                    </FormControl>
+                    <FormControl mb="4">
+                      <FormLabel>Status</FormLabel>
+                      <Select
+                        placeholder="Select category type"
+                        value={status}
+                        onChange={(e) => setStatus(e.target.value)}
+                      >
+                        <option>public</option>
+                        <option>draft</option>
+                        <option>archived</option>
+                      </Select>
                     </FormControl>
                   </>
                 </DrawerBody>

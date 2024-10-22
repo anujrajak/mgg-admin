@@ -21,7 +21,7 @@ const AuthProvider = ({ children }) => {
           id,
         {
           headers: {
-            deviceIdentifier: import.meta.env.DEVICE_IDENTIFIER,
+            deviceidentifier: await import.meta.env.DEVICE_IDENTIFIER,
             authorization: `Bearer ${token}`,
           },
         }
