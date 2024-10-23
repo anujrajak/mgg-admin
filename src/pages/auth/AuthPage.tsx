@@ -9,6 +9,7 @@ import {
   FormControl,
   FormHelperText,
   Heading,
+  Img,
   Input,
   InputGroup,
   InputLeftElement,
@@ -120,6 +121,7 @@ function AuthPage() {
 
   return (
     <Flex
+      bgImage="background.jpg"
       flexDirection="column"
       width="100wh"
       height="100vh"
@@ -133,8 +135,7 @@ function AuthPage() {
         justifyContent="center"
         alignItems="center"
       >
-        <Avatar bg="teal.500" />
-        <Heading color="teal.400">Welcome</Heading>
+        <Img marginBottom="6" width="200px" src="/logo.png" />
         <Box minW={{ base: "90%", md: "468px" }}>
           {showSignup ? (
             <form onSubmit={handleSignup}>
@@ -258,9 +259,18 @@ function AuthPage() {
                       </Button>
                     </InputRightElement>
                   </InputGroup>
-                  <FormHelperText textAlign="right">
-                    <Link>forgot password?</Link>
+
+                  <FormHelperText marginTop="4" textAlign="right">
+                    <Box>
+                      {showSignup ? "Already have an account? " : "New to us? "}
+                      <Link color="teal.500" onClick={toggleSignUp}>
+                        Sign {showSignup ? "In" : "Up"}
+                      </Link>
+                    </Box>
                   </FormHelperText>
+                  {/* <FormHelperText textAlign="right">
+                    <Link>forgot password?</Link>
+                  </FormHelperText> */}
                 </FormControl>
                 <Button
                   borderRadius={0}
@@ -284,12 +294,6 @@ function AuthPage() {
           )}
         </Box>
       </Stack>
-      <Box>
-        {showSignup ? "Already have an account? " : "New to us? "}
-        <Link color="teal.500" onClick={toggleSignUp}>
-          Sign {showSignup ? "In" : "Up"}
-        </Link>
-      </Box>
     </Flex>
   );
 }
