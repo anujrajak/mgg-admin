@@ -31,6 +31,9 @@ import { ImProfile } from "react-icons/im";
 import { GrArticle } from "react-icons/gr";
 import { BiSolidOffer } from "react-icons/bi";
 
+import { useLocation } from "react-router-dom";
+import DashComponent from "../pages/dashboard/DashComponent";
+
 interface LinkItemProps {
   name: string;
   icon: IconType;
@@ -219,6 +222,8 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
 
 const Sidebar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const location = useLocation();
+  console.log(location.pathname);
 
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
@@ -241,7 +246,7 @@ const Sidebar = () => {
       {/* mobilenav */}
       <MobileNav onOpen={onOpen} />
       <Box ml={{ base: 0, md: 60 }} p="4">
-        <Outlet />
+        {location.pathname === "/dashboard" ? <DashComponent /> : <Outlet />}
       </Box>
     </Box>
   );
