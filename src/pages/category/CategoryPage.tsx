@@ -13,6 +13,7 @@ import {
   Tbody,
   Td,
   Th,
+  Tag,
   Thead,
   Tr,
 } from "@chakra-ui/react";
@@ -44,6 +45,7 @@ function CategoryPage() {
   const sortedData = orderBy(data, ["sequence"], ["asc"]);
 
   const columns: string[] = [
+    "NO.",
     "Sequence",
     "Name",
     "Description",
@@ -84,11 +86,32 @@ function CategoryPage() {
                 map(sortedData, (r, i) => {
                   return (
                     <Tr key={`${r.name}-${i}`}>
+                      <Td>{i + 1}</Td>
                       <Td>{r.sequence}</Td>
                       <Td>{r.name}</Td>
                       <Td>{r.description}</Td>
-                      <Td>{r?.parentCategory?.name || ""}</Td>
-                      <Td>{r.categoryType}</Td>
+                      <Td>
+                        <Tag colorScheme="red">
+                          {r?.parentCategory?.name || "N/A"}
+                        </Tag>
+                      </Td>
+                      <Td>
+                        {r.categoryType === "blog" ? (
+                          <Tag colorScheme="green">Blog</Tag>
+                        ) : (
+                          ""
+                        )}
+                        {r.categoryType === "deal" ? (
+                          <Tag colorScheme="yellow">Deal</Tag>
+                        ) : (
+                          ""
+                        )}
+                        {r.categoryType === "product" ? (
+                          <Tag colorScheme="red">Product</Tag>
+                        ) : (
+                          ""
+                        )}
+                      </Td>
                     </Tr>
                   );
                 })
