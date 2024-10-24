@@ -12,8 +12,8 @@ import {
   StatLabel,
   StatNumber,
 } from "@chakra-ui/react";
+import { ReactElement } from "react";
 
-import { BiSolidCategory } from "react-icons/bi";
 import { RxArrowRight } from "react-icons/rx";
 import { Link } from "react-router-dom";
 
@@ -21,23 +21,18 @@ interface IProps {
   isLoading?: boolean;
   label: string;
   value: string;
+  icon: ReactElement;
   route: string;
 }
 
 export default function DashboardStatCard(props: IProps) {
-  const { isLoading, label, value, route } = props;
+  const { isLoading, label, value, route, icon } = props;
   return (
     <Card maxW="xs" borderRadius="3xl" boxShadow="xs">
       <CardHeader>
         <Flex>
           <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-            <Avatar
-              size="lg"
-              bg="gray.100"
-              icon={
-                <BiSolidCategory style={{ color: "green" }} fontSize="2rem" />
-              }
-            />
+            <Avatar size="lg" bg="gray.100" icon={icon} />
             <Box>
               <Heading size="sm"></Heading>
               {isLoading ? (
