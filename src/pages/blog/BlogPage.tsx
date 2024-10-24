@@ -20,6 +20,7 @@ import {
   FormLabel,
   Heading,
   IconButton,
+  Text,
   Input,
   Select,
   Spinner,
@@ -27,11 +28,14 @@ import {
   TableContainer,
   Tbody,
   Td,
+  Tfoot,
   Th,
   Thead,
   Tr,
   useDisclosure,
   useToast,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import MarkdownEditor from "./MarkdownEditor";
 import { GrArticle } from "react-icons/gr";
@@ -39,7 +43,7 @@ import { useRef, useState } from "react";
 import { useFetchBlogs, useFetchCategories } from "../../utils/apiUtils";
 import { apiConstant, postType } from "../../enum/apiConstant";
 import axios from "axios";
-import { filter, map } from "lodash";
+import { filter, isEmpty, map } from "lodash";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 export default function BlogPage() {
@@ -51,7 +55,7 @@ export default function BlogPage() {
     filter(categoryData || [], (cat) => cat.categoryType === "blog")
   );
 
-  const { data, isLoading } = useFetchBlogs();
+  const { data, isLoading } = useFetchBlogs(postType.BLOG);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
@@ -293,6 +297,17 @@ export default function BlogPage() {
                 ))
               )}
             </Tbody>
+            {data && isEmpty(data) && (
+              <Tfoot>
+                <Tr>
+                  <Th></Th>
+                  <Th></Th>
+                  <Th>No data found.</Th>
+                  <Th></Th>
+                  <Th></Th>
+                </Tr>
+              </Tfoot>
+            )}
           </Table>
         </TableContainer>
       </CardBody>

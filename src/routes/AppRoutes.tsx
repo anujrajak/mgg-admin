@@ -7,6 +7,7 @@ import CategoryPage from "../pages/category/CategoryPage";
 import ProfilePage from "../pages/profile/ProfilePage";
 import BlogPage from "../pages/blog/BlogPage";
 import DealsPage from "../pages/deals/DealsPage";
+import ProductPage from "../pages/product/ProductPage";
 
 function AppRoutes() {
   return (
@@ -19,6 +20,7 @@ function AppRoutes() {
             <Route path="category" element={<CategoryPage />} />
             <Route path="deal" element={<DealsPage />} />
             <Route path="profile" element={<ProfilePage />} />
+            <Route path="product" element={<ProductPage />} />
           </Route>
         </Routes>
       </AuthProvider>

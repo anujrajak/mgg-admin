@@ -46,13 +46,15 @@ export const publishBlog = async (payload: any) => {
 };
 export const usePublishBlog = () => useMutation(publishBlog);
 
-export const fetchBlogs = async () => {
+export const fetchBlogs = async (type: string) => {
   try {
-    const response = await axiosInstance.get(apiConstant.ADMIN_BLOGS_ALL);
+    const response = await axiosInstance.get(
+      apiConstant.ADMIN_BLOGS_ALL + "/" + type
+    );
     return response.data.posts;
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 };
-export const useFetchBlogs = () =>
-  useQuery(apiConstant.ADMIN_BLOGS_ALL, fetchBlogs);
+export const useFetchBlogs = (type: string) =>
+  useQuery(apiConstant.ADMIN_BLOGS_ALL, () => fetchBlogs(type));

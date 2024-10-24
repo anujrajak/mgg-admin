@@ -25,6 +25,7 @@ import { IconType } from "react-icons";
 import { BiSolidCategory } from "react-icons/bi";
 import { Link, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { GiShoppingBag } from "react-icons/gi";
 import { AuthContext } from "../providers/AuthProvider";
 import { useContext } from "react";
 import { ImProfile } from "react-icons/im";
@@ -58,6 +59,7 @@ const LinkItems: Array<LinkItemProps> = [
   { name: "Blogs", icon: GrArticle, route: "blog" },
   { name: "Category", icon: BiSolidCategory, route: "category" },
   { name: "Deals", icon: BiSolidOffer, route: "deal" },
+  { name: "Product", icon: GiShoppingBag, route: "product" },
   { name: "Profile", icon: ImProfile, route: "profile" },
 ];
 

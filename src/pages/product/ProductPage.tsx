@@ -33,21 +33,21 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { BiSolidOffer } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import MarkdownEditor from "../blog/MarkdownEditor";
+import { GiShoppingBag } from "react-icons/gi";
 import { useRef, useState } from "react";
 import { useFetchBlogs, useFetchCategories } from "../../utils/apiUtils";
 import { isEmpty, map } from "lodash";
 import { apiConstant, postType } from "../../enum/apiConstant";
 import axios from "axios";
 
-export default function DealsPage() {
+export default function ProductPage() {
   const toast = useToast();
 
   const { data: categoryData, isLoading: isCategoryLoading } =
     useFetchCategories();
-  const { data, isLoading } = useFetchBlogs(postType.DEAL);
+  const { data, isLoading } = useFetchBlogs(postType.PRODUCT);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
@@ -99,10 +99,10 @@ export default function DealsPage() {
     inputImgRef.current.click();
   };
 
-  const publishDeal = async () => {
+  const publishProduct = async () => {
     try {
       const formData = new FormData();
-      formData.append("postType", postType.DEAL);
+      formData.append("postType", postType.PRODUCT);
       formData.append("title", title);
       formData.append("category", category);
       formData.append("tags", tags);
@@ -114,7 +114,7 @@ export default function DealsPage() {
 
       const res = await axios.post(
         import.meta.env.VITE_API_BASE_URL +
-          apiConstant.ADMIN_BLOGS_CREATE_DEAL_POST,
+          apiConstant.ADMIN_BLOGS_CREATE_PRODUCT_POST,
         formData,
         {
           headers: {
@@ -139,9 +139,9 @@ export default function DealsPage() {
       <CardHeader>
         <Flex p="4">
           <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-            <Avatar bg="red.500" icon={<BiSolidOffer fontSize="1.5rem" />} />
+            <Avatar bg="red.500" icon={<GiShoppingBag fontSize="1.5rem" />} />
             <Box>
-              <Heading size="md">Deals</Heading>
+              <Heading size="md">Products</Heading>
             </Box>
           </Flex>
           <>
@@ -163,7 +163,7 @@ export default function DealsPage() {
               <DrawerOverlay />
               <DrawerContent>
                 <DrawerCloseButton />
-                <DrawerHeader>Create Deal</DrawerHeader>
+                <DrawerHeader>Create Product</DrawerHeader>
 
                 <DrawerBody>
                   <>
@@ -254,8 +254,8 @@ export default function DealsPage() {
                 </DrawerBody>
 
                 <DrawerFooter>
-                  <Button colorScheme="blue" mr={3} onClick={publishDeal}>
-                    Publish Blog
+                  <Button colorScheme="blue" mr={3} onClick={publishProduct}>
+                    Publish Product
                   </Button>
                   <Button variant="outline" onClick={onClose}>
                     Cancel
